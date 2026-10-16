@@ -66,3 +66,9 @@ Para afirmar que um release está validado, exigimos execução com contas e dad
 O workflow faz **smoke read-only** da pagina publica e da API diariamente de segunda a sexta e nos pushes (por padrao `https://turnopronto.com.br`; mude `vars.QA_BASE_URL` para homologacao). O pacote completo autenticado executa quando `vars.QA_BASE_URL` estiver configurado e os secrets forem fornecidos. `QA_ENFORCE_COMPLETE=1` reprova a etapa completa se houver testes ignorados ou instaveis; isso impede um falso verde causado por falta de credenciais.
 
 **Defeito de regressao ja mapeado:** `/profissional/oportunidades` atualmente nao possui checkbox para mostrar apenas vagas acompanhadas. O teste correspondente deve falhar ate o controle ser implementado no sistema web.
+
+## Ambiente isolado e testes reais no CI
+
+O workflow `backend-integracao` inicializa MySQL 8 e PHP 8.2, executa os testes unitarios/integracao do proprio `turnopronto_web`, cria dados de demonstracao no banco `tp_ci`, faz login como os tres perfis por navegador e testa os endpoints com tokens efemeros. Na sequencia testa cenarios mutaveis, **sem acessar producao**. As falhas do HTML/HTTP e do Playwright sao reportadas separadamente e tornam o job vermelho, preservando todas as evidencias.
+
+Se o site mudar a interface, revise o teste correspondente; nao substitua as assercoes por verificacoes vazias. Exemplos de defeitos reais devem gerar issues no repositorio do produto.

@@ -78,6 +78,8 @@ jobs:
             echo "::endgroup::"
           done
       - name: Verificar HTTP local autenticação, busca, vagas e CSS
+        id: http_regression
+        continue-on-error: true
         run: |
           set -euo pipefail
           cd app-under-test
@@ -89,11 +91,62 @@ jobs:
             sleep 1
           done
           python3 app-under-test/tests/http_dashboard.py
-      - uses: actions/upload-artifact@v4
-        if: failure()
+      - uses: actions/setup-node@v4
         with:
-          name: backend-php-logs
-          path: /tmp/turnopronto-php.log
+          node-version: '22'
+      - name: Instalar navegador e framework QA
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Preparar fixtures descartaveis de tres perfis
+        run: |
+          set -euo pipefail
+          cd app-under-test
+          php tests/setup_demo.php
+          cd ..
+          php scripts/qa-fixtures.php >> "$GITHUB_ENV"
+          curl -fsS http://127.0.0.1:8080/api/v1/health > /dev/null
+          node scripts/qa-tokens.mjs
+      - name: Testes Playwright completos com usuarios reais QA
+        id: e2e
+        continue-on-error: true
+        run: npm run qa:full
+      - name: Consolidar primeira bateria e salvar relatorios
+        if: always()
+        run: |
+          mkdir -p artifacts
+          cp artifacts/playwright.json artifacts/playwright-full.json 2>/dev/null || true
+          npm run qa:report || true
+          mv artifacts/qa-summary.json artifacts/qa-summary-full.json 2>/dev/null || true
+          mv playwright-report playwright-report-full 2>/dev/null || true
+      - name: Testes de alteracao controlada em base isolada
+        id: e2e_mutations
+        continue-on-error: true
+        run: npm run qa:staging
+      - name: Consolidar bateria mutavel
+        if: always()
+        run: |
+          npm run qa:report || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-e2e-testes
+          path: |
+            playwright-report/
+            playwright-report-full/
+            test-results/
+            artifacts/
+            /tmp/turnopronto-php.log
+      - name: Reprovar pipeline se houve falha na API/HTML, E2E ou mutacoes
+        if: always()
+        run: |
+          echo "HTTP: ${{ steps.http_regression.outcome }}"
+          echo "E2E: ${{ steps.e2e.outcome }}"
+          echo "Mutation: ${{ steps.e2e_mutations.outcome }}"
+          test "${{ steps.http_regression.outcome }}" = success
+          test "${{ steps.e2e.outcome }}" = success
+          test "${{ steps.e2e_mutations.outcome }}" = success
+
   smoke-publico:
     needs: inventario
     runs-on: ubuntu-latest
