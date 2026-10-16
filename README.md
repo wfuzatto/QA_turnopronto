@@ -20,7 +20,7 @@ Sistema independente de qualidade do [turnopronto_web](https://github.com/wfuzat
 Requisitos: Node.js 20+, ambiente web PHP/MySQL do TurnoPronto já instalado e executando.
 
 ```bash
-npm ci
+npm install --no-audit --no-fund
 npx playwright install --with-deps chromium
 cp .env.example .env
 # Configure QA_BASE_URL no ambiente ou carregue .env

@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import { baseUrl } from './src/config.mjs';
 
-const target = process.env.QA_BASE_URL || 'http://127.0.0.1:8000';
+const target = baseUrl || 'http://127.0.0.1:8000';
 export default defineConfig({
   testDir: './tests',
   testMatch: '**/*.spec.mjs',

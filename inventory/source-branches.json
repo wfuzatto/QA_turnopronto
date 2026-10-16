@@ -1,0 +1,802 @@
+{
+  "source_repo": "wfuzatto/turnopronto_web",
+  "generated_at": "2026-10-15",
+  "explanation": "Uma entrada por branch de roteamento PHP; automatic/conditional/staging nao significam PASS, e sim objetivo de teste.",
+  "files": {
+    "app/Web.php": [
+      {
+        "line": 6,
+        "condition": "if ($path === '/visual-check' && $method === 'GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 14,
+        "condition": "if ($path === '/login') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 74,
+        "condition": "if ($path === '/termos' && $method === 'GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 82,
+        "condition": "if ($path === '/privacidade' && $method === 'GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 90,
+        "condition": "if (preg_match('#^/media/perfis/([a-f0-9]{40}\\.(?:jpg|png|webp))$#',$path,$m) && $method==='GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 107,
+        "condition": "if (preg_match('#^/media/vagas/([a-f0-9]{40}\\.(?:jpg|png|webp))$#',$path,$m) && $method==='GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 124,
+        "condition": "if ($path === '/vagas' && $method==='GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 144,
+        "condition": "if (preg_match('#^/vagas/(\\d+)$#',$path,$m) && $method==='GET') {",
+        "role": "public",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 163,
+        "condition": "if (preg_match('#^/vagas/(\\d+)/acompanhar$#',$path,$m) && $method==='POST') {",
+        "role": "public",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 197,
+        "condition": "if (preg_match('#^/vagas/(\\d+)/interesse$#',$path,$m) && $method==='POST') {",
+        "role": "public",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 233,
+        "condition": "if ($path === '/cadastro/profissional') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 259,
+        "condition": "if (in_array($path,['/cadastro/profissional/contato','/cadastro/profissional/whatsapp'],true)) {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 288,
+        "condition": "if (in_array($path,['/cadastro','/cadastro/empresa'],true)) {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 311,
+        "condition": "if ($path === '/cadastro/verificar') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 357,
+        "condition": "if ($path === '/cadastro/profissional/pagamento') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 388,
+        "condition": "if ($path === '/logout') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 393,
+        "condition": "if ($path === '/' || $path === '') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 402,
+        "condition": "if ($path === '/buscar' && $method==='GET') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 419,
+        "condition": "if ($path === '/notificacoes/feed') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 429,
+        "condition": "if ($path === '/notificacoes') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 438,
+        "condition": "if ($path === '/notificacoes/ler-todas' && $method==='POST') {",
+        "role": "public",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 446,
+        "condition": "if (preg_match('#^/notificacoes/(\\d+)/abrir$#',$path,$m)) {",
+        "role": "public",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 457,
+        "condition": "if ($path === '/empresa/dashboard') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 462,
+        "condition": "if ($path === '/empresa/verificacao/whatsapp/enviar' && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 480,
+        "condition": "if ($path === '/empresa/verificacao/whatsapp/confirmar' && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 492,
+        "condition": "if ($path === '/empresa/verificacao/documentos/enviar' && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 504,
+        "condition": "if ($path === '/empresa/verificacao') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 513,
+        "condition": "if ($path === '/empresa/conta') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 532,
+        "condition": "if ($path === '/empresa/vagas') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 537,
+        "condition": "if ($path === '/empresa/categorias' && $method === 'POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 551,
+        "condition": "if ($path === '/empresa/vagas/nova') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 571,
+        "condition": "if (preg_match('#^/empresa/vagas/(\\d+)/editar$#',$path,$m)) {",
+        "role": "company",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 596,
+        "condition": "if (preg_match('#^/empresa/vagas/(\\d+)/cancelar$#',$path,$m) && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 608,
+        "condition": "if (preg_match('#^/empresa/vagas/(\\d+)/candidaturas/(\\d+)/(aprovar|rejeitar)$#',$path,$m) && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 625,
+        "condition": "if (preg_match('#^/empresa/vagas/(\\d+)$#',$path,$m)) {",
+        "role": "company",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 642,
+        "condition": "if ($path === '/empresa/profissionais') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 652,
+        "condition": "if (preg_match('#^/empresa/profissionais/(\\d+)/convidar$#',$path,$m) && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 665,
+        "condition": "if ($path === '/empresa/escalas') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 674,
+        "condition": "if ($path === '/empresa/financeiro') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 683,
+        "condition": "if ($path === '/empresa/avaliacoes') {",
+        "role": "company",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 692,
+        "condition": "if (preg_match('#^/empresa/avaliacoes/(\\\\d+)$#',$path,$m) && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 704,
+        "condition": "if ($path === '/suporte') {",
+        "role": "public",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 709,
+        "condition": "if (in_array($path,['/empresa/suporte','/profissional/suporte','/admin/suporte'],true) && $method==='GET') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 720,
+        "condition": "if (preg_match('#^/(empresa|profissional)/suporte/chamados$#',$path,$m) && $method==='POST') {",
+        "role": "company",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 734,
+        "condition": "if (preg_match('#^/(empresa|profissional|admin)/suporte/chamados/(\\d+)$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 750,
+        "condition": "if (preg_match('#^/(empresa|profissional|admin)/suporte/chamados/(\\d+)/atualizacoes$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 770,
+        "condition": "if (preg_match('#^/(empresa|profissional|admin)/suporte/chamados/(\\d+)/mensagens$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 797,
+        "condition": "if (preg_match('#^/admin/suporte/chamados/(\\d+)/status$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 809,
+        "condition": "if ($path === '/profissional/inicio') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 814,
+        "condition": "if ($path === '/profissional/completar') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 861,
+        "condition": "if ($path === '/profissional/perfil') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 883,
+        "condition": "if ($path === '/profissional/oportunidades') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 893,
+        "condition": "if (preg_match('#^/profissional/vagas/(\\d+)$#',$path,$m)) {",
+        "role": "professional",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 909,
+        "condition": "if (preg_match('#^/profissional/vagas/(\\d+)/acompanhar$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 926,
+        "condition": "if (preg_match('#^/profissional/vagas/(\\d+)/aceitar$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 955,
+        "condition": "if ($path === '/profissional/turnos' || $path === '/profissional/agenda') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 960,
+        "condition": "if (preg_match('#^/profissional/turno/(\\d+)$#',$path,$m)) {",
+        "role": "professional",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 975,
+        "condition": "if (preg_match('#^/profissional/turno/(\\\\d+)/cancelar$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 988,
+        "condition": "if (preg_match('#^/profissional/turno/(\\\\d+)/avaliar$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1000,
+        "condition": "if (preg_match('#^/profissional/turno/(\\d+)/checkin$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1012,
+        "condition": "if (preg_match('#^/profissional/turno/(\\d+)/checkout$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1024,
+        "condition": "if ($path === '/profissional/ganhos') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1029,
+        "condition": "if ($path === '/profissional/reputacao') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1034,
+        "condition": "if (preg_match('#^/profissional/reputacao/(\\\\d+)/contestar$#',$path,$m) && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1046,
+        "condition": "if ($path === '/profissional/documentos/enviar' && $method==='POST') {",
+        "role": "professional",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1059,
+        "condition": "if ($path === '/profissional/documentos') {",
+        "role": "professional",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1064,
+        "condition": "if (preg_match('#^/admin/verificacao/(empresa|profissional)/(\\d+)/campo$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1081,
+        "condition": "if (preg_match('#^/admin/verificacao/empresa/(\\d+)$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 1095,
+        "condition": "if (preg_match('#^/admin/verificacao/profissional/(\\d+)$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 1109,
+        "condition": "if (preg_match('#^/admin/verificacao/empresa/(\\d+)/documentos/enviar$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1126,
+        "condition": "if (preg_match('#^/admin/documentos/empresa/(\\d+)/arquivo$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 1140,
+        "condition": "if (preg_match('#^/admin/documentos/empresa/(\\d+)/(aprovar|rejeitar)$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1153,
+        "condition": "if (preg_match('#^/admin/verificacao/profissional/(\\d+)/documentos/enviar$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1170,
+        "condition": "if (preg_match('#^/admin/documentos/(\\d+)/arquivo$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 1184,
+        "condition": "if (preg_match('#^/admin/documentos/(\\d+)/(aprovar|rejeitar)$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1197,
+        "condition": "if (preg_match('#^/admin/verificacao/(empresa|profissional)/(\\d+)/(aprovar|rejeitar)$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 1213,
+        "condition": "if ($path === '/admin/vagas') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1223,
+        "condition": "if ($path === '/admin/candidatos') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1233,
+        "condition": "if ($path === '/admin/empresas') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1243,
+        "condition": "if ($path === '/admin/usuarios') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1253,
+        "condition": "if (preg_match('#^/admin/usuarios/(\\d+)$#',$path,$m) && $method==='GET') {",
+        "role": "admin",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 1267,
+        "condition": "if ($path === '/admin/locais') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1277,
+        "condition": "if ($path === '/admin/relatorios') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1287,
+        "condition": "if ($path === '/admin/configuracoes') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1309,
+        "condition": "if ($path === '/admin/conta') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1327,
+        "condition": "if ($path === '/admin/dashboard') {",
+        "role": "admin",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 1341,
+        "condition": "if (preg_match('#^/admin/reputacao/(\\\\d+)/(aceitar|rejeitar)$#',$path,$m) && $method==='POST') {",
+        "role": "admin",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      }
+    ],
+    "app/Api.php": [
+      {
+        "line": 23,
+        "condition": "if($relative==='/health' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 34,
+        "condition": "if($relative==='/auth/login' && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 53,
+        "condition": "if($relative==='/categories' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 57,
+        "condition": "if($relative==='/appearance' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 61,
+        "condition": "if($relative==='/auth/register/start' && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 72,
+        "condition": "if($relative==='/auth/register/resend' && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 82,
+        "condition": "if($relative==='/auth/register/verify' && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 97,
+        "condition": "if($relative==='/public/opportunities' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 101,
+        "condition": "if(preg_match('#^/public/shifts/(\\\\d+)$#',$relative,$m) && $method==='GET'){",
+        "role": "api",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 113,
+        "condition": "if($relative==='/auth/logout' && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 118,
+        "condition": "if($relative==='/me' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 129,
+        "condition": "if($relative==='/opportunities' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 134,
+        "condition": "if($relative==='/home' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 139,
+        "condition": "if($relative==='/onboarding' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 144,
+        "condition": "if($relative==='/onboarding/payment' && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 154,
+        "condition": "if(preg_match('#^/shifts/(\\d+)$#',$relative,$m) && $method==='GET'){",
+        "role": "api",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 163,
+        "condition": "if(preg_match('#^/shifts/(\\d+)/follow$#',$relative,$m) && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 173,
+        "condition": "if(preg_match('#^/shifts/(\\d+)/unfollow$#',$relative,$m) && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 183,
+        "condition": "if(preg_match('#^/shifts/(\\d+)/accept$#',$relative,$m) && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 193,
+        "condition": "if($relative==='/assignments' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 198,
+        "condition": "if(preg_match('#^/assignments/(\\d+)$#',$relative,$m) && $method==='GET'){",
+        "role": "api",
+        "mode": "conditional",
+        "coverage": "conditional-fixture-required"
+      },
+      {
+        "line": 205,
+        "condition": "if(preg_match('#^/assignments/(\\d+)/check-in$#',$relative,$m) && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 216,
+        "condition": "if(preg_match('#^/assignments/(\\d+)/check-out$#',$relative,$m) && $method==='POST'){",
+        "role": "api",
+        "mode": "mutation",
+        "coverage": "staging-fixture-required"
+      },
+      {
+        "line": 226,
+        "condition": "if($relative==='/earnings' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 231,
+        "condition": "if($relative==='/reputation' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      },
+      {
+        "line": 236,
+        "condition": "if($relative==='/documents' && $method==='GET'){",
+        "role": "api",
+        "mode": "page",
+        "coverage": "automatic"
+      }
+    ]
+  }
+}

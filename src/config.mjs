@@ -1,3 +1,10 @@
+import fs from 'node:fs';
+if (fs.existsSync('.env')) {
+  for(const line of fs.readFileSync('.env','utf8').split(/\r?\n/)) {
+    const m=line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+    if(m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^["']|["']$/g,'');
+  }
+}
 import { URL } from 'node:url';
 
 export const baseUrl = (process.env.QA_BASE_URL || '').replace(/\/+$/, '');
