@@ -36,7 +36,7 @@ test.describe('Regressoes conhecidas por produto',()=>{
     const rows=page.locator('[data-opportunity-row]');
     const count=await rows.count();
     await search.fill('termoqa-inexistente-2222');
-    await expect(rows.filter({visible:true})).toHaveCount(0);
+    await expect(page.locator('[data-opportunity-row]:visible')).toHaveCount(0);
     await search.fill('');
     await expect(rows).toHaveCount(count);
   });

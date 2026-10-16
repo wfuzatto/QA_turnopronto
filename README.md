@@ -60,3 +60,9 @@ O workflow baixa o `wfuzatto/turnopronto_web` no diretório `app-under-test` e c
 Para afirmar que um release está validado, exigimos execução com contas e dados próprios de QA, zero falhas críticas, nenhuma rota nova sem cobertura, todos os testes críticos concluídos e análise dos itens condicionais (WhatsApp, pagamentos, check-in, geolocalização, rede externa). Testes que dependem de dados de turno, PIN ou KYC precisam de fixtures controladas e nunca devem ser disparados contra produção.
 
 > Este repositório é **QA**; não executa deploy no site nem altera o `turnopronto_web`.
+
+## Execucao no GitHub Actions
+
+O workflow faz **smoke read-only** da pagina publica e da API diariamente de segunda a sexta e nos pushes (por padrao `https://turnopronto.com.br`; mude `vars.QA_BASE_URL` para homologacao). O pacote completo autenticado executa quando `vars.QA_BASE_URL` estiver configurado e os secrets forem fornecidos. `QA_ENFORCE_COMPLETE=1` reprova a etapa completa se houver testes ignorados ou instaveis; isso impede um falso verde causado por falta de credenciais.
+
+**Defeito de regressao ja mapeado:** `/profissional/oportunidades` atualmente nao possui checkbox para mostrar apenas vagas acompanhadas. O teste correspondente deve falhar ate o controle ser implementado no sistema web.

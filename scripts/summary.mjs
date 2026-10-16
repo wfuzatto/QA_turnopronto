@@ -25,5 +25,5 @@ if (!fs.existsSync(file)) {
   fs.mkdirSync('artifacts',{recursive:true});
   fs.writeFileSync('artifacts/qa-summary.json',JSON.stringify(summary,null,2));
   console.log('Resumo QA:',summary);
-  if (failed || !passed) process.exitCode=1;
+  if (failed || !passed || (process.env.QA_ENFORCE_COMPLETE==='1' && (skipped || flaky))) process.exitCode=1;
 }

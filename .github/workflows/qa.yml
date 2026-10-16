@@ -27,12 +27,35 @@ jobs:
         with:
           name: auditoria-de-rotas
           path: artifacts/
+  smoke-publico:
+    needs: inventario
+    runs-on: ubuntu-latest
+    env:
+      QA_BASE_URL: ${{ vars.QA_BASE_URL || 'https://turnopronto.com.br' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Testar pagina publica e seguranca sem escritas
+        run: npm run qa:smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-publico
+          path: |
+            playwright-report/
+            test-results/
+            artifacts/
   testes:
     needs: inventario
     if: ${{ vars.QA_BASE_URL != '' }}
     runs-on: ubuntu-latest
     env:
       QA_BASE_URL: ${{ vars.QA_BASE_URL }}
+      QA_ENFORCE_COMPLETE: '1'
       QA_COMPANY_USER: ${{ secrets.QA_COMPANY_USER }}
       QA_COMPANY_PASSWORD: ${{ secrets.QA_COMPANY_PASSWORD }}
       QA_PROFESSIONAL_USER: ${{ secrets.QA_PROFESSIONAL_USER }}
