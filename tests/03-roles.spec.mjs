@@ -26,9 +26,15 @@ for(const role of ['professional','company','admin']) {
       const finish=observe(page,testInfo);
       await page.goto(site(pages[role][0]));
       const search=page.locator('[data-global-search-input]');
-      await expect(search).toBeVisible();
-      await search.fill('qa-palavra-sem-correspondencia-9271');
-      await search.press('Enter');
+      if (role === 'admin') {
+        // O layout do administrador omite deliberadamente a barra de busca global.
+        await expect(search).toHaveCount(0);
+        await page.goto(site('/buscar?q=qa-palavra-sem-correspondencia-9271'));
+      } else {
+        await expect(search).toBeVisible();
+        await search.fill('qa-palavra-sem-correspondencia-9271');
+        await search.press('Enter');
+      }
       await expect(page).toHaveURL(/\/buscar\?q=/);
       await expect(page.locator('body')).toContainText(/busca|resultado|encontrad/i);
       const r=await page.request.get(site('/notificacoes/feed'));
@@ -99,11 +105,11 @@ test.describe('Admin: diretorio e ajustes',()=>{
     await expect(page.locator('input[name="web_skin"],.admin-skin-card')).not.toHaveCount(0);
   });
   test('edicao inline visivel quando existe cadastro de teste',async({page})=>{
-    const id=fixture('admin_user');
-    test.skip(!id,'Configure QA_ADMIN_USER_ID de fixture');
-    await page.goto(site('/admin/usuarios/'+id));
+    const id=fixture('admin_company');
+    test.skip(!id,'Configure QA_ADMIN_COMPANY_ID de fixture');
+    await page.goto(site('/admin/verificacao/empresa/'+id));
     const editable=page.locator('[data-inline-field][data-inline-edit-url]').first();
-    test.skip(!(await editable.count()),'Registro nao oferece campos editaveis');
+    await expect(editable,'Edicao inline deve existir no cadastro da empresa').toBeVisible();
     await editable.dblclick();
     await expect(editable.locator('input,textarea,select').first()).toBeVisible();
     // Nao salva: integridade do dado de teste e preservada.
