@@ -23,8 +23,26 @@ test.describe('Regressoes conhecidas por produto',()=>{
     test.skip(!hasRole('professional'),'Exige profissional QA');
     await loginAs(page,'professional');
     await page.goto(site('/profissional/oportunidades'));
-    const candidates=page.locator('input[type="checkbox"][name*="follow"], input[type="checkbox"][data-only-followed], [data-filter-following] input[type="checkbox"]');
-    await expect(candidates,'Regressao: falta checkbox para mostrar somente vagas acompanhadas').not.toHaveCount(0);
+    const checkbox=page.getByRole('checkbox',{name:'Apenas vagas acompanhadas'});
+    await expect(checkbox,'Regressao: falta o filtro acessivel de vagas acompanhadas').toBeVisible();
+    await expect(checkbox).not.toBeChecked();
+
+    const rows=page.locator('[data-opportunity-row]');
+    await expect(rows,'Fixture QA precisa trazer vagas para validar o filtro').not.toHaveCount(0);
+    await page.locator('[data-opportunity-radius]').selectOption('0');
+    await page.locator('[data-opportunity-days]').selectOption('0');
+    const total=await rows.count();
+    await expect(page.locator('[data-opportunity-row]:visible')).toHaveCount(total);
+
+    const followed=await page.locator('[data-opportunity-row][data-following="1"]').count();
+    await checkbox.check();
+    await expect(checkbox).toBeChecked();
+    await expect(page.locator('[data-opportunity-row][data-following="0"]:visible')).toHaveCount(0);
+    await expect(page.locator('[data-opportunity-row]:visible'),'Apenas vagas acompanhadas devem permanecer visiveis').toHaveCount(followed);
+
+    await checkbox.uncheck();
+    await expect(checkbox).not.toBeChecked();
+    await expect(page.locator('[data-opportunity-row]:visible'),'Desmarcar o filtro deve restaurar as vagas').toHaveCount(total);
   });
 
   test('busca de oportunidades filtra e volta a mostrar todas as vagas',async({page})=>{
