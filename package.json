@@ -1,0 +1,20 @@
+{
+  "name": "qa-turnopronto",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Suite independente de regressao E2E e contrato para TurnoPronto Web",
+  "scripts": {
+    "qa:smoke": "node scripts/preflight.mjs && playwright test --grep @smoke",
+    "qa:full": "node scripts/preflight.mjs && playwright test --grep-invert @mutation",
+    "qa:staging": "node scripts/preflight.mjs --writes && playwright test --grep @mutation",
+    "qa:audit": "node scripts/audit-source.mjs",
+    "qa:report": "node scripts/summary.mjs",
+    "qa:list": "playwright test --list",
+    "test": "npm run qa:full"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  },
+  "engines": {"node": ">=20"}
+}

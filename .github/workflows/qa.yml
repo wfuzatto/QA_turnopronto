@@ -1,0 +1,63 @@
+name: QA TurnoPronto
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+  schedule:
+    - cron: '20 9 * * 1-5'
+jobs:
+  inventario:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: wfuzatto/turnopronto_web
+          path: app-under-test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Auditar as rotas do sistema
+        run: npm run qa:audit
+        env:
+          QA_SOURCE_DIR: app-under-test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: auditoria-de-rotas
+          path: artifacts/
+  testes:
+    needs: inventario
+    if: ${{ vars.QA_BASE_URL != '' }}
+    runs-on: ubuntu-latest
+    env:
+      QA_BASE_URL: ${{ vars.QA_BASE_URL }}
+      QA_COMPANY_USER: ${{ secrets.QA_COMPANY_USER }}
+      QA_COMPANY_PASSWORD: ${{ secrets.QA_COMPANY_PASSWORD }}
+      QA_PROFESSIONAL_USER: ${{ secrets.QA_PROFESSIONAL_USER }}
+      QA_PROFESSIONAL_PASSWORD: ${{ secrets.QA_PROFESSIONAL_PASSWORD }}
+      QA_ADMIN_USER: ${{ secrets.QA_ADMIN_USER }}
+      QA_ADMIN_PASSWORD: ${{ secrets.QA_ADMIN_PASSWORD }}
+      QA_PROFESSIONAL_TOKEN: ${{ secrets.QA_PROFESSIONAL_TOKEN }}
+      QA_COMPANY_TOKEN: ${{ secrets.QA_COMPANY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Testes funcionais somente leitura
+        run: npm run qa:full
+      - name: Resumo de cobertura e skip
+        if: always()
+        run: npm run qa:report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorios-qa
+          path: |
+            playwright-report/
+            test-results/
+            artifacts/
