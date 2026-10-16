@@ -27,6 +27,73 @@ jobs:
         with:
           name: auditoria-de-rotas
           path: artifacts/
+  backend-integracao:
+    needs: inventario
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: qa-root-temporario
+          MYSQL_DATABASE: tp_ci
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pqa-root-temporario --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=15
+    env:
+      TP_TEST_DB: tp_ci
+      TP_TEST_DB_PASSWORD: qa-root-temporario
+      TP_TEST_PASSWORD: qa-demo-senha-2026
+      TP_TEST_URL: http://127.0.0.1:8080
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: wfuzatto/turnopronto_web
+          path: app-under-test
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql, mbstring, curl, fileinfo, gd
+          coverage: none
+      - name: Verificar sintaxe PHP
+        run: find app-under-test -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Testar helper de URL e renderizacao
+        working-directory: app-under-test
+        run: |
+          php tests/base_path_regression.php
+          php tests/base_path_production.php
+          php tests/render_dashboard.php
+      - name: Testar regras com BD isolado (um reset por caso)
+        working-directory: app-under-test
+        run: |
+          set -euo pipefail
+          for scenario in admin_ops_flow notification_flow progressive_onboarding support_flow shift_following shift_image_flow; do
+            echo "::group::Cenario ${scenario}"
+            php tests/setup_demo.php
+            php "tests/${scenario}.php"
+            echo "::endgroup::"
+          done
+      - name: Verificar HTTP local autenticação, busca, vagas e CSS
+        run: |
+          set -euo pipefail
+          cd app-under-test
+          php tests/setup_demo.php
+          cd ..
+          php -S 127.0.0.1:8080 -t app-under-test scripts/router.php > /tmp/turnopronto-php.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8080/api/v1/health > /dev/null; then break; fi
+            sleep 1
+          done
+          python3 app-under-test/tests/http_dashboard.py
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: backend-php-logs
+          path: /tmp/turnopronto-php.log
   smoke-publico:
     needs: inventario
     runs-on: ubuntu-latest
